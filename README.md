@@ -1,8 +1,9 @@
-# CryptoGat201RNASeq_draft
-Cryptococcus neoformans RNA-seq Gat201 strains 2021.
+# Single end read QuantSeq Fwd pipeline
+Based on analysis of Cryptococcus neoformans RNA-seq Gat201 strains 2021.
 
 Data created by Liz Hughes, December 2020. 
 Analysis started by Edward Wallace, February 2021
+Updated by Sam Haynes, November 2021
 
 # Contents
 
@@ -28,10 +29,27 @@ gzip -dkc EH_050221_Data/2_S44_R1_001.fastq.gz \
 
 ## How to run the pipeline
 
-First edit the parameters in `src/quantseqfwd.nf` so that
+Download NextFlow, https://www.nextflow.io/.
+
+Download hisat2 aligner, http://daehwankimlab.github.io/hisat2/.
+
+Download the reference genome fasta file https://www.ncbi.nlm.nih.gov/assembly/GCF_000146045.2/. 
+
+Index the reference genome using the hisat2-build tool, move the outputted *.ht2 files into the input_annotation/index folder of this repo.
+
+```
+hisat2-build <reference_in>
+```
+Add the correct gff file with 3'UTRS add (example gff is used in paired pipeline https://github.com/DimmestP/nextflow_paired_reads_pipeline/tree/main/data/shared_data/raw_annotation/reference_genome_annotation)
+
+Edit the parameters in `src/quantseqfwd.nf` so that
 
 * `params.input_fq_dir` points to an input directory containing all of your fastq files 
 * `params.output_dir` points to the output directory where you would like all the outputs stored.
+* `params.adapters` has the appropriate sequence adapters to remove
+* `params.index_prefix` has the start of the *.1.ht2 files created above
+* `params.mRNAgff` points to the relevent gff file location
+* `params.featuretype` and params.featurename correspond to the right features in the gff file (i.e. primary transcript) 
 
 Then run the command:
 
