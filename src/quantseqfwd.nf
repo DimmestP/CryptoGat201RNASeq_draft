@@ -94,7 +94,7 @@ Align trimmed reads to the genome with hisat2
 */
 
 process alignHisat2 {
-    conda 'bioconda::hisat2=2.1.0'
+    conda 'bioconda::hisat2=2.2.1'
     errorStrategy 'ignore'
     tag "${sample_id}"
     publishDir "${params.output_dir}/${sample_id}", pattern: '*.hisat2_summary.txt', mode: 'copy', overwrite: true
