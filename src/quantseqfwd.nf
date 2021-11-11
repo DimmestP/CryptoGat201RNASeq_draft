@@ -51,6 +51,7 @@ Run FastQC to produce a quality control report for the input data for every samp
 */
 
 process runFastQC{
+    conda 'bioconda::fastqc=0.11.9'
     errorStrategy 'ignore'
     tag "${sample_id}"
     publishDir "${params.output_dir}/${sample_id}", saveAs: { "${sample_id}_fastqc.zip" }, mode: 'copy', overwrite: true
@@ -74,6 +75,7 @@ Cut sequencing adapters from 3' end of gene
 */
 
 process cutAdapters {
+    conda 'bioconda::cutadapt=1.18'
     errorStrategy 'ignore'
     tag "${sample_id}"
     input:
@@ -92,6 +94,7 @@ Align trimmed reads to the genome with hisat2
 */
 
 process alignHisat2 {
+    conda 'bioconda::hisat2=2.1.0'
     errorStrategy 'ignore'
     tag "${sample_id}"
     publishDir "${params.output_dir}/${sample_id}", pattern: '*.hisat2_summary.txt', mode: 'copy', overwrite: true
@@ -119,6 +122,7 @@ Turn unsorted aligned samfiles into sorted indexed compressed bamfiles
 */
 
 process samViewSort {
+    conda 'bioconda::samtools=1.11'
     errorStrategy 'ignore'
     tag "${sample_id}"
     input:
@@ -143,6 +147,7 @@ Make bedgraphs showing coverage of aligned reads
 */
 
 process makeBedgraphs {
+    conda 'bioconda::bedtools=2.30.0'
     errorStrategy 'ignore'
     tag "${sample_id}"
     publishDir "${params.output_dir}/${sample_id}", mode: 'copy', overwrite: true
@@ -185,6 +190,7 @@ Run featureCounts to count aligned reads to genes for all processed samples
 */
 
 process countAllmRNA {
+    conda 'bioconda::subread=2.0.0'
     errorStrategy 'ignore'
     publishDir "${params.output_dir}", mode: 'copy'
     input:
@@ -203,6 +209,7 @@ Run multiQC to collate single quality control report across all samples.
 */
 
 process runMultiQC{
+    conda 'bioconda::multiqc=1.6'
     tag { "multiQC" }
     publishDir "${params.output_dir}", mode: 'copy', overwrite: true
     input:
