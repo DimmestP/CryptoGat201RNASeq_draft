@@ -40,7 +40,7 @@ Index the reference genome using the hisat2-build tool, move the outputted *.ht2
 ```
 hisat2-build <reference_in>
 ```
-Add the correct gff file with 3'UTRS add (example gff is used in paired pipeline https://github.com/DimmestP/nextflow_paired_reads_pipeline/tree/main/data/shared_data/raw_annotation/reference_genome_annotation)
+Add the correct gff file with 3'UTRs in the input_annotation folder (example gff is used in paired pipeline https://github.com/DimmestP/nextflow_paired_reads_pipeline/tree/main/data/shared_data/raw_annotation/reference_genome_annotation)
 
 Edit the parameters in `src/quantseqfwd.nf` so that
 
